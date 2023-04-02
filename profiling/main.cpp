@@ -104,7 +104,7 @@ bool modo_4(unsigned short int &n,unsigned short int &m){
 template <typename T>
 
 void chrono_duration(T &start, T &end){
-    cout<<chrono::duration_cast<chrono::milliseconds>(end-start).count()<<" ";
+    cout<<chrono::duration_cast<chrono::microseconds>(end-start).count()<<" ";
 };
 
 int main(int argc,char** argv){
@@ -113,6 +113,8 @@ int main(int argc,char** argv){
     n=atoi(argv[1]);
     m=atoi(argv[2]);
     
+
+    cout<<(unsigned int)n*m<<" ";
     auto start = chrono::steady_clock::now();
     modo_1(n,m);
     auto end = chrono::steady_clock::now();
@@ -132,7 +134,8 @@ int main(int argc,char** argv){
     modo_4(n,m);
     end = chrono::steady_clock::now();
     chrono_duration(start,end);
-    
+    cout<<endl;
+
     return 0;
 
 }
