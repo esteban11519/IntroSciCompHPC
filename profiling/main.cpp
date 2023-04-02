@@ -34,7 +34,7 @@ bool modo_1(unsigned short int &n,unsigned short int &m){
     // cout<<"Modo 1"<<endl;
     for (unsigned short int i = 0; i < n; i++){
         for (unsigned short int j = 0; j < m; j++){
-            arreglo_modo_1[i][j]=(unsigned int)(j+i*m);
+            arreglo_modo_1[i][j]=(unsigned int)j+(unsigned int)i*m;
             // cout<<arreglo_modo_1[i][j]<<" ";
         };
         // cout<<"\n";
