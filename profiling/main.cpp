@@ -45,12 +45,13 @@ bool modo_1(unsigned short int &n,unsigned short int &m){
 
 bool modo_2(unsigned short int &n,unsigned short int &m){
     
-    unsigned int *arreglo_modo_2=crear_arreglo_entero((unsigned int)(n*m));
+    unsigned int *arreglo_modo_2=crear_arreglo_entero((unsigned int)n*m);
 
     // cout<<"Modo 2"<<endl;
+    
     for (unsigned short int i = 0; i < n; i++){
         for (unsigned short int j = 0; j < m; j++){
-            arreglo_modo_2[(unsigned int)(j+i*m)]=(unsigned int)(j+i*m);
+            arreglo_modo_2[(unsigned int)j+(unsigned int)i*m]=(unsigned int)j+(unsigned int)i*m;
             // cout<<arreglo_modo_2[j+i*m]<<" ";
 
         };
@@ -62,12 +63,12 @@ bool modo_2(unsigned short int &n,unsigned short int &m){
 
 bool modo_3(unsigned short int &n,unsigned short int &m){
         
-    unsigned int *arreglo_modo_3=crear_arreglo_entero((unsigned int)(n*m));
+    unsigned int *arreglo_modo_3=crear_arreglo_entero((unsigned int)n*m);
 
     // cout<<"Modo 3"<<endl;
     for (unsigned short int i = 0; i < n; i++){
         for (unsigned short int j = 0; j < m; j++){
-            arreglo_modo_3[(unsigned int)(i+j*n)]=(unsigned int)(i+j*n);
+            arreglo_modo_3[(unsigned int)i+(unsigned int)j*n]=(unsigned int)i+(unsigned int)j*n;
         };
     };
 
@@ -84,11 +85,11 @@ bool modo_3(unsigned short int &n,unsigned short int &m){
 
 bool modo_4(unsigned short int &n,unsigned short int &m){
     
-    unsigned int *arreglo_modo_4=crear_arreglo_entero((unsigned int)(n*m));
+    unsigned int *arreglo_modo_4=crear_arreglo_entero((unsigned int)n*m);
 
 
     // cout<<"Modo 4"<<endl;
-    for (unsigned int i = 0; i < (unsigned int)(n*m); i++){    
+    for (unsigned int i = 0; i < (unsigned int)n*m; i++){    
         arreglo_modo_4[i]=i;
         // cout<<arreglo_modo_4[i]<<" ";
 
