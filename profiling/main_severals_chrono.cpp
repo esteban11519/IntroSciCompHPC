@@ -23,7 +23,6 @@ int main (int argc, char **arg)
     // Se regeran números aleatorios de  uniform_int_distribution <> name(a,b), intervalo [a,b] 
     uniform_int_distribution <> distrib(low,high);
     
-    system("gmake");
     system(("echo nxm modo_1 modo_2 modo_3 modo_4 >"+results).c_str());
 
     for(unsigned short int i=0;i<N;i++){
