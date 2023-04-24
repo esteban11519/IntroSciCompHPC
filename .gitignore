@@ -1,11 +1,8 @@
 awk
 bash
-cpp
+eigen
 debugging
 errores
-gitignore
 librerias
 makefile_and_cpp
-profiling/*.pdf
-profiling/*.out
-S2C2gitLadino
+profiling
