@@ -3,6 +3,11 @@
 OPT_LEV = 0 3
 N = 100 200
 SAMPLES = 5
+# THREADS = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+THREADS = 1 2 3 4 5 6 7
+RES_2_N = 100
+RES_1_OPT = 1
+RES_2_OPT = 0
 
 # Outputs
 
@@ -26,6 +31,8 @@ RES_1_PY = $(RES_1).py
 RES_2 = strong_scaling
 RES_2_PDF = $(RES_2).pdf
 RES_2_PY = $(RES_2).py
+RES_2_OUT = $(RES_2).out
+RES_2_TXT = $(RES_2).txt
 
 
 # Compilers
@@ -37,4 +44,4 @@ STD_VER = -std=c++17
 SAN_FLAG = -fsanitize=address,leak,pointer-compare,pointer-subtract,undefined
 WAR_FLAG = -Wall
 ADD_FLAG = -g
-
+OPT_FLAG = -O3 -fopenmp

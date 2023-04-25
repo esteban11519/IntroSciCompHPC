@@ -1,7 +1,0 @@
-for level in $1
-do $(COM_CPP) -O$$level $(STD_VER) $(ADD_FLAG) $(WAR_FLAG) $(SAN_FLAG) $(CPP_FILES) -o $(MAIN_OUT)
-   for size in $(N)
-   do -n "$$size , "; ./$(MAIN_OUT) $$size; echo -n " , "
-   done > data_O$$level.txt
-done
-echo ok > finish.txt

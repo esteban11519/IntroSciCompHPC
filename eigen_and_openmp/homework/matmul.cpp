@@ -89,37 +89,47 @@ double standard_deviation(std::vector<double> &vec, double &mymean){
 
 int main(int argc, char **argv){
 
-  if (argc != 3){
-    std::cout<<"Please insert the N and samples number"<<std::endl;
+  if (argc != 4){
+    std::cout<<"Please insert the N, samples number and 1 for all multiplication methods"<<std::endl;
     return 1;
   }
   double mean_eigen;		// Mean to eigen multiplication
   double sigma_eigen;		// Standard deviation to eigen multiplication 
-
+  std::vector<double> vec_wall_clock_eigen; // Wall clock time in eigen multiplication
+  
+  
   double mean_simple;		// Mean to simple multiplication
   double sigma_simple;		// Standard deviation to eigen multiplication
-  
-  std::vector<double> vec_wall_clock_eigen; // Wall clock time in eigen multiplication
   std::vector<double> vec_wall_clock_simple; // Wall clock time in simple multiplication
+  
   
   
   for (int i=0; i < atoi(argv[2]); i++) {
     vec_wall_clock_eigen.push_back(multiply_eigen(atoi(argv[1]), i));
-    vec_wall_clock_simple.push_back(multiply_simple(atoi(argv[1]), i));    
+    if(atoi(argv[3])==1)
+      vec_wall_clock_simple.push_back(multiply_simple(atoi(argv[1]), i));    
   }
 
   // Statistics operations  
   mean_eigen = mean(vec_wall_clock_eigen);
-  mean_simple = mean(vec_wall_clock_simple);
+  if(atoi(argv[3])==1)
+    mean_simple = mean(vec_wall_clock_simple);
 
+  
   sigma_eigen = standard_deviation(vec_wall_clock_eigen, mean_eigen);
-  sigma_simple = standard_deviation(vec_wall_clock_simple, mean_simple);
+  if(atoi(argv[3])==1)
+    sigma_simple = standard_deviation(vec_wall_clock_simple, mean_simple);
 
   //  Print results
   std::cout.precision(15);
   std::cout.setf(std::ios::scientific);
-  std::cout << mean_eigen << " , " << sigma_eigen << " , " << mean_simple
-       << " , " << sigma_simple << std::endl; 
   
+  if(atoi(argv[3])==1)
+    std::cout << mean_eigen << " , " << sigma_eigen << " , "  << mean_simple
+	      << " , " << sigma_simple << std::endl;
+  else 
+    std::cout << mean_eigen << " , " << sigma_eigen << std::endl;
+
+   
   return 0;
 }

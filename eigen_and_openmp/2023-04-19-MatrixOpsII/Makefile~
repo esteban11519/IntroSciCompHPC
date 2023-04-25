@@ -1,0 +1,15 @@
+CPP_FILES = $(wildcard *.cpp)
+
+MAIN = main
+MAIN_CPP = $(MAIN).cpp
+MAIN_OUT = $(MAIN).out
+
+FSANITIZE = -fsanitize=address,undefined
+STD_VERSION = -std=c++17
+COMPILER_FLAGS = -g -Wall
+OPTIMIZATION_FLAGS=-O3
+CPP_COMPILER = g++
+
+
+$(MAIN_OUT) : $(CPP_FILES) Makefile
+	$(CPP_COMPILER) $(OPTIMIZATION_FLAGS) $(COMPILER_FLAGS) $(STD_VERSION) $(FSANITIZE) $(CPP_FILES) -o $(MAIN_OUT)
