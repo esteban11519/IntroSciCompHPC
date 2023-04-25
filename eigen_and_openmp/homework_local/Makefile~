@@ -1,0 +1,19 @@
+include config.mk
+
+finish.txt : $(CPP_FILES) $(CONFIG_MK)
+	for level in $(OPT_LEV); \
+	do $(COM_CPP) -O$$level $(STD_VER) $(ADD_FLAG) $(WAR_FLAG) $(SAN_FLAG) $(CPP_FILES) -o $(MAIN_OUT);\
+		for size in $(N);\
+		do echo -n "$$size , "; ./$(MAIN_OUT) $$size $(SAMPLES);\
+		done > data_O$$level.txt;\
+	done
+	echo ok > finish.txt
+
+.PHONY : compile_and_run
+compile_and_run:
+	$(COM_CPP) $(ADD_FLAG) $(WAR_FLAG) $(SAN_FLAG) $(CPP_FILES) -o $(MAIN_OUT)
+	./$(MAIN_OUT) $(N)
+
+
+## Bibliography
+# https://stackoverflow.com/questions/1490949/how-to-write-loop-in-a-makefile
