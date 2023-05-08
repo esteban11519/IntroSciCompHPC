@@ -6,3 +6,7 @@ errores
 librerias
 makefile_and_cpp
 profiling
+eigen_and_openmp
+mpi
+openmpi
+openmp

@@ -4,7 +4,7 @@ include config.mk
 all : $(RES_1_PDF) $(RES_2_PDF)
 
 $(RES_2_PDF) : $(RES_2_PY)  $(RES_1)_O$(firstword $(OPT_LEV)).txt $(RES_2_TXT) 
-	$(COM_PY) $< $(shell awk -F ',' 'NR==1{ print $$2}' $(RES_1)_O$(firstword $(OPT_LEV)).txt) $(RES_2) 
+	$(COM_PY) $< $(shell awk -F ',' 'END{ print $$2}' $(RES_1)_O$(firstword $(OPT_LEV)).txt) $(RES_2) 
 
 $(RES_2_TXT) : $(RES_2_OUT)
 	for thr in $(THREADS);\

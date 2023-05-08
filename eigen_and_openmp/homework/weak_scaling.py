@@ -19,8 +19,8 @@ data_2 = np.loadtxt(file_data_2, dtype=np.float64, skiprows=0, delimiter=',')
 x = data_1[:, 0]
 # Normalization
 wall_clock_time_eigen_N10_O0 = data_1[0, 1]
-data_1[:, 1:-1] = data_1[:, 1:-1]/wall_clock_time_eigen_N10_O0
-data_2[:, 1:-1] = data_2[:, 1:-1]/wall_clock_time_eigen_N10_O0
+data_1[:, 1:data_1.shape[1]] = data_1[:, 1:data_1.shape[1]]/wall_clock_time_eigen_N10_O0
+data_2[:, 1:data_2.shape[1]] = data_2[:, 1:data_2.shape[1]]/wall_clock_time_eigen_N10_O0
 
 
 # Plot
@@ -28,7 +28,8 @@ data_2[:, 1:-1] = data_2[:, 1:-1]/wall_clock_time_eigen_N10_O0
 plt.ylabel("wall-clock / wall-clock(eigen(N=10,-O0)) $[s/s]$")
 plt.xlabel(title[0])
 scientitic_notation = "{:.3e}".format(wall_clock_time_eigen_N10_O0)
-plt.title(f"Weak Scaling with wall-clock(eigen(N=10,-O0) = {scientitic_notation} [s]")
+plt.title(f"Weak Scaling with wall-clock(eigen(N=10,-O0)) = {scientitic_notation} [s]")
+plt.yscale("log")
 plt.errorbar(x, data_1[:, 1], yerr=data_1[:, 2], fmt='^', markersize=markersize,
              elinewidth=elinewidth, label=title[1]+' - 00')
 plt.errorbar(x, data_1[:, 3], yerr=data_1[:, 4], fmt='s', markersize=markersize,
