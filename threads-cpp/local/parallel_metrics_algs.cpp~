@@ -4,7 +4,7 @@
 #include <vector>
 #include <execution>
 #include <chrono>
-#include "tbb/task_scheduler_init.h"
+#include <tbb/task_scheduler_init.h>
 
 template<typename Func>
 void time_function(Func func);
@@ -60,6 +60,7 @@ int main(int argc, char **argv){
 
   case 1:
     {
+      task_scheduler_init init(THREADS_NUMBER);
       std::clog<<"par execution policy"<<std::endl;
       auto par_policy = [&myArray](){return std::reduce(std::execution::par, myArray.begin(), myArray.end());};
       time_function(par_policy);
@@ -69,6 +70,7 @@ int main(int argc, char **argv){
 
   case 2:
     {
+      task_scheduler_init init(THREADS_NUMBER);
       std::clog<<"par_unseq execution policy"<<std::endl;
       auto par_unseq_policy = [&myArray](){return std::reduce(std::execution::par_unseq, myArray.begin(), myArray.end());};
       time_function(par_unseq_policy);
@@ -76,7 +78,7 @@ int main(int argc, char **argv){
     break;
 
   default:
-    std::cerr<<"Please insert a policy execution option between 0 to 2"<<std::endl;
+    std::cerr<<"Please insert a policy execution option between 0 and 2"<<std::endl;
     break;
   }
   
@@ -90,6 +92,10 @@ void time_function(Func func) {
   func();
   auto end = std::chrono::high_resolution_clock::now();
   auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-  std::cout << "Elapsed time: " << duration_ms/1000.0 << "  s" << std::endl;
+  std::clog<<"Time is give in seconds"<<std::endl;
+  std::cout << duration_ms/1000.0 << std::endl;
 }
+
+// Bibliography
+// [1] «task_scheduler_init Class». https://www.cism.ucl.ac.be/Services/Formations/ICS/ics_2013.0.028/composer_xe_2013/Documentation/en_US/tbb/help/reference/task_scheduler/task_scheduler_init_cls.htm (accedido 7 de mayo de 2023).
 
