@@ -16,7 +16,7 @@ $(DATA)_parallel_$(lastword $(PARALLEL)).dat : $(MAIN_OUT)
 
 
 $(MAIN_OUT) : $(CPP_FILES) $(CONFIG_MK)
-	$(COM_CPP) $(ADD_FLAG)  $(STD_VER) $(CPP_FILES) -o $@ $(INC_FLAG)
+	$(COM_CPP) $(ADD_FLAG) $(WAR_FLAG)  $(STD_VER) $(CPP_FILES) -o $@ $(INC_FLAG)
 
 
 .PHONY : clean

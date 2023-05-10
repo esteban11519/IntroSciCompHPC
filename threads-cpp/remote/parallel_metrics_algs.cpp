@@ -5,9 +5,10 @@
 #include <execution>
 #include <chrono>
 #include <tbb/task_scheduler_init.h>
+#include <cmath>
 
 template<typename Func>
-void time_function(Func func, int); // Calculate wall clock time
+void time_function(Func func, int &); // Calculate wall clock time
 bool are_command_line_arguments_valid(int &, char ** ,int &, int &, int &, int &); // arguments verification
 double mean(std::vector<double> &); // Calculate mean
 double standard_deviation(std::vector<double> &, double &); // Calculate standard deviation
@@ -17,6 +18,8 @@ int main(int argc, char **argv){
   // Variables
   int ARRAY_SIZE,THREADS_NUMBER,EXECUTION_POLICY,SAMPLES;
   ARRAY_SIZE=200000000;
+  THREADS_NUMBER=0;
+  EXECUTION_POLICY=0;
   SAMPLES=7;
   
   std::clog<<"Please in command line insert the follow arguments: \n"<<
@@ -25,9 +28,9 @@ int main(int argc, char **argv){
     "EXECUTION_POLICY: 0 for seq, 1 for par and 2 for par_unseq \n"<<
     "SAMPLES: times to run, default is 7 (the results are a little different) \n"<<std::endl;
 
+  
   // Parameters verification
-  if(!are_command_line_arguments_valid(argc, argv,ARRAY_SIZE, THREADS_NUMBER,
-			 EXECUTION_POLICY, SAMPLES)){
+  if(!are_command_line_arguments_valid(argc, argv,ARRAY_SIZE, THREADS_NUMBER,EXECUTION_POLICY, SAMPLES)){
     std::cerr<<"Please insert valid arguments"<<std::endl;
     return 1;
   }
@@ -77,8 +80,8 @@ int main(int argc, char **argv){
 
 //Adapted from Professor's function
 template<typename Func>
-void time_function(Func func, int samples) {
-  vector<double> vec_chrono_times;
+void time_function(Func func, int &samples) {
+  std::vector<double> vec_chrono_times;
   for(int i=0; i<samples ; i++){
     auto start = std::chrono::high_resolution_clock::now();
     func();
@@ -98,8 +101,7 @@ void time_function(Func func, int samples) {
   return;
 }
 
-bool are_command_line_arguments_valid(int & argc, char **argv,int ARRAY_SIZE, int & THREADS_NUMBER,
-			 int & EXECUTION_POLICY, int & SAMPLES){
+bool are_command_line_arguments_valid(int &argc, char **argv,int &ARRAY_SIZE, int &THREADS_NUMBER, int &EXECUTION_POLICY, int &SAMPLES){
   if(argc==3){
     THREADS_NUMBER=atoi(argv[1]);
     EXECUTION_POLICY=atoi(argv[2]);
@@ -136,6 +138,7 @@ bool are_command_line_arguments_valid(int & argc, char **argv,int ARRAY_SIZE, in
 
   return false;
 }
+
 
 double mean(std::vector<double> & vec){
   // Using accumulate but in parallel form
