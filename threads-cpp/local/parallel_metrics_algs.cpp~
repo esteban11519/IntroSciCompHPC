@@ -11,7 +11,7 @@ void time_function(Func func);
 
 
 int main(int argc, char **argv){
-   int n = task_scheduler_init::default_num_threads();
+  
   // Variables
   int ARRAY_SIZE,THREADS_NUMBER,PARALLEL_EXECUTION_POLICY;
   ARRAY_SIZE=200000000;
@@ -60,7 +60,7 @@ int main(int argc, char **argv){
 
   case 1:
     {
-      task_scheduler_init init(THREADS_NUMBER);
+      tbb::task_scheduler_init init(THREADS_NUMBER);
       std::clog<<"par execution policy"<<std::endl;
       auto par_policy = [&myArray](){return std::reduce(std::execution::par, myArray.begin(), myArray.end());};
       time_function(par_policy);
@@ -70,7 +70,7 @@ int main(int argc, char **argv){
 
   case 2:
     {
-      task_scheduler_init init(THREADS_NUMBER);
+      tbb::task_scheduler_init init(THREADS_NUMBER);
       std::clog<<"par_unseq execution policy"<<std::endl;
       auto par_unseq_policy = [&myArray](){return std::reduce(std::execution::par_unseq, myArray.begin(), myArray.end());};
       time_function(par_unseq_policy);
@@ -86,14 +86,14 @@ int main(int argc, char **argv){
   return 0;
 }
 
+// Professor's function
 template<typename Func>
-void time_function(Func func) {
+double time_function(Func func) {
   auto start = std::chrono::high_resolution_clock::now();
   func();
   auto end = std::chrono::high_resolution_clock::now();
   auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-  std::clog<<"Time is give in seconds"<<std::endl;
-  std::cout << duration_ms/1000.0 << std::endl;
+  std::cout << duration_ms/1000.0 << std::endl; // [s]
 }
 
 // Bibliography

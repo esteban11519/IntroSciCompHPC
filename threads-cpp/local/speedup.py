@@ -7,9 +7,9 @@ data_files = []
 data_np = []
 linewidth = 1
 
-for i in range(1, len(sys.argv), 1):
-    data_files.append(i)
-
+for i in range(1, len(sys.argv)-1, 1):
+    data_files.append(sys.argv[i])
+    
 figure_name = sys.argv[-1]
 
 # Extract data from txt files
@@ -23,13 +23,13 @@ n = data_np[0][:, 0]
 
 # Speedup calculation
 for i in range(len(labels)):
-    data_np[i][:, 1] = data_np[i][0, 0]/data_np[i][:, 1]
+    data_np[i][:, 1] = data_np[i][0, 1]/data_np[i][:, 1]
 
 # Plot
 
 plt.ylabel("Speedup $[s/s]$")
-plt.xlabel("Thread")
-plt.title("8 physical cores and 8 logics")
+plt.xlabel("Threads")
+plt.title("16 cores with 8 physicals")
 
 for i in range(len(labels)):
     plt.plot(n, data_np[i][:, 1], linewidth=linewidth, label=labels[i])

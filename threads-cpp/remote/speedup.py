@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 labels = ['sep', 'par', 'par_unseq']
+lines_style = [':', '--', '-.']
 data_files = []
 data_np = []
 linewidth = 1
@@ -32,9 +33,9 @@ plt.xlabel("Threads")
 plt.title("16 cores with 8 physicals")
 
 for i in range(len(labels)):
-    plt.plot(n, data_np[i][:, 1], linewidth=linewidth, label=labels[i])
+    plt.plot(n, data_np[i][:, 1], lines_style[i], linewidth=linewidth, label=labels[i])
 
-plt.plot(n, n, label="Theorical")
+plt.plot(n, n, label="Theorical", linewidth=linewidth)
 plt.legend()
 plt.grid(linestyle='--', linewidth=0.3)
 plt.savefig(figure_name, format="pdf", bbox_inches="tight")

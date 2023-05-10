@@ -88,7 +88,7 @@ int main(int argc, char **argv){
 
 // Professor's function
 template<typename Func>
-double time_function(Func func) {
+void time_function(Func func) {
   auto start = std::chrono::high_resolution_clock::now();
   func();
   auto end = std::chrono::high_resolution_clock::now();

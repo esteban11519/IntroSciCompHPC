@@ -1,14 +1,16 @@
 include config.mk
 
+all : $(patsubst %.py, %.pdf, $(wildcard *.py))
+
 %.pdf : %.py $(patsubst %,$(DATA)_parallel_%.dat,$(PARALLEL))
 	$(COM_PY) $^ $@
 
 
 $(DATA)_parallel_$(lastword $(PARALLEL)).dat : $(MAIN_OUT) 
 	for par in $(PARALLEL); \
-	do;\
-		for thr in $(THREADS);\
-		do echo -n "$$thr , "; ./$(MAIN_OUT) $$thr $$par;\
+	do \
+		for thr in $(THREADS) ; \
+		do echo -n "$$thr "; ./$(MAIN_OUT) $$thr $$par;\
 		done > $(DATA)_parallel_$$par.dat;\
 	done
 
@@ -23,7 +25,6 @@ clean :
 	rm -rf *.pdf
 	rm -rf *.dat
 	rm -rf *.out
-
 
 ## Bibliography
 # https://stackoverflow.com/questions/1490949/how-to-write-loop-in-a-makefile
