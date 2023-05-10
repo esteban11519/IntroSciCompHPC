@@ -40,7 +40,7 @@ for i in range(len(labels)):
 plt.plot(n, np.ones(len(n)), linewidth=linewidth, label="Theorical")
 plt.plot(n, 0.6*np.ones(len(n)), linewidth=linewidth, label="0.6")
 
-plt.legend()
+plt.legend(loc='upper right')
 plt.grid(linestyle='--', linewidth=0.3)
 plt.savefig(figure_name, format="pdf", bbox_inches="tight")
 # plt.show()

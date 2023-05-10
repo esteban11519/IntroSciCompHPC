@@ -8,7 +8,7 @@
 #include <cmath>
 
 template<typename Func>
-void time_function(Func func, int &); // Calculate wall clock time
+void time_function(Func func, int &, int &); // Calculate wall clock time
 bool are_command_line_arguments_valid(int &, char ** ,int &, int &, int &, int &); // arguments verification
 double mean(std::vector<double> &); // Calculate mean
 double standard_deviation(std::vector<double> &, double &); // Calculate standard deviation
@@ -45,27 +45,25 @@ int main(int argc, char **argv){
     {
       std::clog<<"seq execution policy"<<std::endl;
       auto seq_policy = [&myArray](){return std::reduce(std::execution::seq, myArray.begin(), myArray.end());};
-      time_function(seq_policy, SAMPLES);
+      time_function(seq_policy, SAMPLES, THREADS_NUMBER);
     }
     
     break;
 
   case 1:
     {
-      tbb::task_scheduler_init init(THREADS_NUMBER);
       std::clog<<"par execution policy"<<std::endl;
       auto par_policy = [&myArray](){return std::reduce(std::execution::par, myArray.begin(), myArray.end());};
-      time_function(par_policy, SAMPLES);
+      time_function(par_policy, SAMPLES, THREADS_NUMBER);
     }
     
     break;
 
   case 2:
     {
-      tbb::task_scheduler_init init(THREADS_NUMBER);
       std::clog<<"par_unseq execution policy"<<std::endl;
       auto par_unseq_policy = [&myArray](){return std::reduce(std::execution::par_unseq, myArray.begin(), myArray.end());};
-      time_function(par_unseq_policy, SAMPLES);
+      time_function(par_unseq_policy, SAMPLES, THREADS_NUMBER);
     }
     break;
 
@@ -80,9 +78,10 @@ int main(int argc, char **argv){
 
 //Adapted from Professor's function
 template<typename Func>
-void time_function(Func func, int &samples) {
+void time_function(Func func, int &samples, int &THREADS_NUMBER) {
   std::vector<double> vec_chrono_times;
   for(int i=0; i<samples ; i++){
+    tbb::task_scheduler_init init(THREADS_NUMBER);
     auto start = std::chrono::high_resolution_clock::now();
     func();
     auto end = std::chrono::high_resolution_clock::now();
