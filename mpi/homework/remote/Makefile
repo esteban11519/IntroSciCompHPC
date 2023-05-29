@@ -2,13 +2,13 @@ include config.mk
 
 all : $(patsubst %.py, %.pdf, $(wildcard *.py))
 
-$(RES_3_PDF) : $(DATA_3).dat $(RES_3_PY)
+$(RES_3_PDF) : $(RES_3_PY) $(DATA_3).dat
 	$(COM_PY) $^ $@
 
-$(RES_2_PDF) : $(DATA_1_2).dat $(RES_2_PY)
+$(RES_2_PDF) : $(RES_2_PY)  $(DATA_1_2).dat 
 	$(COM_PY) $^ $@
 
-$(RES_1_PDF) : $(DATA_1_2).dat $(RES_1_PY)
+$(RES_1_PDF) : $(RES_1_PY) $(DATA_1_2).dat 
 	$(COM_PY) $^ $@
 
 $(DATA_3).dat : $(MAIN_OUT) 
@@ -18,8 +18,8 @@ $(DATA_3).dat : $(MAIN_OUT)
 
 $(DATA_1_2).dat : $(MAIN_OUT) 
 	for pro in $(PROCESS); \
-	do $(RUN_CPP) -np $$pro $(MAIN_OUT) $(SIZE);\
-	done > $@
+	do echo -n "$$pro " >&2; $(RUN_CPP) -np $$pro $(MAIN_OUT) $(SIZE);\
+	done 2> $@
 
 
 $(MAIN_OUT) : $(CPP_FILES) $(CONFIG_MK)

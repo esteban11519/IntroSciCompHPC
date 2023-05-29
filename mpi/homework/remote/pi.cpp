@@ -78,12 +78,17 @@ int N_c_serial(int N, int seed){
 
 template <typename T>
 void calculate_and_print(T start, T end, int count, int N){
-  auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  auto duration_mus = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
   double pi_aprox=count*4.0/N;
   double rel_dif=(pi_aprox-M_PI)*100.0/M_PI;
+
   // print
+  std::clog.precision(15);
+  std::clog.setf(std::ios::scientific);
   std::cout.precision(15);
   std::cout.setf(std::ios::scientific);
-  std::cout << N <<" "<<pi_aprox<<" "<< rel_dif <<" "<<duration_ms/1000.0<<std::endl;
+  
+  std::clog << duration_mus/1000000.0 << "\n"; //[s]
+  std::cout << N <<" "<< pi_aprox << " " << rel_dif << std::endl;
   return;
 }
