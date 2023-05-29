@@ -1,0 +1,29 @@
+#include <random>
+#include <iostream>
+
+int samples(int);
+
+int main(){
+
+  std::cout<<samples(1000)*4/1000<<std::endl;
+  return 0;
+}
+
+
+int samples(int N){
+  int count = 0;
+  int seed = 1;
+
+  std::mt19937 gen(seed);
+  std::uniform_real_distribution<double> dis(-1.0,1.0);
+
+  for(int ii=0; ii<N; ++ii){
+    double rx = dis(gen);
+    double ry = dis(gen);
+
+    if(rx*rx+ry*ry<1)
+      count++;
+  }
+  
+  return count;
+}
